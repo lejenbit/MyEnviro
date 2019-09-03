@@ -1,3 +1,16 @@
+<?php
+//ipinfo grabs the ip of the person requesting
+
+$getloc = json_decode(file_get_contents("http://ipinfo.io/"));
+
+//echo $getloc->ip; //to get city
+//print_r($getloc);
+$coordinates = explode(",", $getloc->loc); // -> '32,-72' becomes'32','-72'
+//echo $coordinates[0]; // latitude
+//echo $coordinates[1]; // longitude
+
+$longlat = $coordinates[1] . ', ' . $coordinates[0];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -217,16 +230,16 @@
 
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
-            <div class="logo"><h4>
+            <div class="logo">
                 <a href="#">
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>My</b>Enviro</span>
-                </a></h4>
+                    <span class="logo-lg" style="font-size:x-large"><b>My</b>Enviro</span>
+                </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="has-sub">
+                        <!-- <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
@@ -259,7 +272,7 @@
                         <li>
                             <a href="#">
                                 <i class="fas fa-calendar-alt"></i>Calendar</a>
-                        </li>
+                        </li> -->
                         <li class="active">
                              <a class="js-arrow" href="#">
                                 <i class="fas fa-map-marker-alt"></i>Maps</a>
@@ -274,11 +287,11 @@
                                     <a href="index3.html">PBT</a>
                                 </li>
                                 <li>
-                                    <a href="index4.html">Dashboard 4</a>
+                                    <a href="index4.html">Ladang MyGAP</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="has-sub">
+                        <!-- <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-copy"></i>Pages</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
@@ -329,7 +342,7 @@
                                 </li>
                                 <li>
                                     <a href="typo.html">Typography</a>
-                                </li>
+                                </li> -->
                             </ul>
                         </li>
                     </ul>
@@ -517,6 +530,33 @@
             <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
+                    <div class="row">
+                    <div class="col-md-12">
+                                <div class="au-card au-card-top-countries m-b-30">
+                                    <div class="au-card-inner">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Current Location</td>
+                                                        <td class="text-right"><?= $getloc->city ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>IP Address</td>
+                                                        <td class="text-right"><?= $getloc->ip ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Long/Lat</td>
+                                                        <td class="text-right"><?= $longlat?></td>
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="map-data m-b-40">
@@ -627,7 +667,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">
-                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                                    <p>Copyright © 2019 DOE. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
                                 </div>
                             </div>
                         </div>

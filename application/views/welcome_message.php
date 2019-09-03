@@ -6,37 +6,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $getloc = json_decode(file_get_contents("http://ipinfo.io/"));
 
-echo $getloc->city; //to get city
+//echo $getloc->city; //to get city
 
 $coordinates = explode(",", $getloc->loc); // -> '32,-72' becomes'32','-72'
-echo $coordinates[0]; // latitude
-echo $coordinates[1]; // longitude
+//echo $coordinates[0]; // latitude
+//echo $coordinates[1]; // longitude
 
 $longlat = $coordinates[1] . ', ' . $coordinates[0];
 ?>
 
-<h1>Welcome to CodeIgniter!</h1>
+<h1>PORTAL INFORMASI ALAM SEKITAR</h1>
 
 <div id="body">
-    <p>your IP - <?= $_SERVER['REMOTE_ADDR'] ?></p>
+
+    <!-- <p>your IP - <?= $getloc->ip ?></p>
     <p>your City - <?= $getloc->city ?></p>
-    <p>your Longitude/Latitude   - <?= $longlat?></p>
+    <p>your Longitude/Latitude   - <?= $longlat?></p> -->
     <div id="map" class="map"></div>
-    <p id="details"></p>
+    <p id="details">
+        
+    </p>
     <div id="popup" class="ol-popup">
      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
      <div id="popup-content"></div>
     </div>
-    <p>If you would like to edit this page you'll find it located at:</p>
+    <!-- <p>If you would like to edit this page you'll find it located at:</p>
     <code>application/views/welcome_message.php</code>
 
     <p>The corresponding controller for this page is found at:</p>
     <code>application/controllers/Welcome.php</code>
 
-    <p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
+    <p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p> -->
 </div>
 
-<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo (ENVIRONMENT === 'development') ? 'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
+<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. </p>
 <script type="text/javascript">
     
     
@@ -69,6 +72,7 @@ $longlat = $coordinates[1] . ', ' . $coordinates[0];
          ]
      })
  });
+
  map.addLayer(layer);
  
  
@@ -107,28 +111,40 @@ $longlat = $coordinates[1] . ', ' . $coordinates[0];
  overlay.setPosition(ol.proj.fromLonLat([101.7340499, 3.1478947]));
  
  map.addOverlay(overlay);
+
+ function updateDisplay($html)
+ {
+
+    return document.getElementById('details').html($html);
+ }
  
  $(document).ready(function () {
         $.ajax({
                     url: '<?= base_url('index.php/welcome/return_gap')?>', type: "GET", dataType: "json",
                     success: function (data) {
-                        content = "<h3>Company Details</h3>";
-                        content += "<dl class=\"dl-horizontal\">";
-                        content += "<dt>Company Name</dt><dd>" + data.company_name + "</dd>";
-                        content += "<dt>Last Name</dt><dd>" + data.LastName + "</dd>";
-                        content += "<dt>Address1</dt><dd>" + data.Address1 + "</dd>";
-                        content += "<dt>Address2</dt><dd>" + data.Address2 + "</dd>";
-                        content += "<dt>City</dt><dd>" + data.City + "</dd>";
-                        content += "<dt>State</dt><dd>" + data.State + "</dd>";
-                        content += "<dt>Country </dt><dd>" + data.Country + "</dd>";
-                        content += "<dt>PostalCode</dt><dd>" + data.PostalCode + "</dd>";
-                        content += "<dt>Email </dt><dd>" + data.Email + "</dd>";
-                        content += "<dt>DOB </dt><dd>" + data.DOB + "</dd>";
-                        content += "<dt>Gender </dt><dd>" + data.Gender + "</dd>";
-                        content += "<dt>IsPermanent </dt><dd>" + data.IsPermanent + "</dd>";
-                        content += "<dt>Salary </dt><dd>" + data.Salary + "</dd>";
-                        content += " </dl>";
-                        $('#details').html(content);
+
+                        $.each(data, function(index){
+                            console.log(data[index].company_name);
+                            console.log(data[index].type_operation);
+                        });
+                        console.log(data);
+                        // content = "<h3>Company Details</h3>";
+                        // content += "<dl class=\"dl-horizontal\">";
+                        // content += "<dt>Company Name</dt><dd>" + data.company_name + "</dd>";
+                        // content += "<dt>Type</dt><dd>" + data.LastName + "</dd>";
+                        // content += "<dt>Address1</dt><dd>" + data.Address1 + "</dd>";
+                        // content += "<dt>Address2</dt><dd>" + data.Address2 + "</dd>";
+                        // content += "<dt>City</dt><dd>" + data.City + "</dd>";
+                        // content += "<dt>State</dt><dd>" + data.State + "</dd>";
+                        // content += "<dt>Country </dt><dd>" + data.Country + "</dd>";
+                        // content += "<dt>PostalCode</dt><dd>" + data.PostalCode + "</dd>";
+                        // content += "<dt>Email </dt><dd>" + data.Email + "</dd>";
+                        // content += "<dt>DOB </dt><dd>" + data.DOB + "</dd>";
+                        // content += "<dt>Gender </dt><dd>" + data.Gender + "</dd>";
+                        // content += "<dt>IsPermanent </dt><dd>" + data.IsPermanent + "</dd>";
+                        // content += "<dt>Salary </dt><dd>" + data.Salary + "</dd>";
+                        // content += " </dl>";
+                        //$('#details').html(content);
                     },
                     error: function (xhr, status, error) {
                         alert(xhr.responseText);
