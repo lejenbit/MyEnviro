@@ -22,4 +22,11 @@ class Welcome extends CI_Controller {
 	{
 		$this->template->load('template/template_body', 'welcome_message');
 	}
+        
+        public function return_gap()
+        {
+            $query = $this->db->get('gap');
+            
+            echo json_encode($query->result());
+        }
 }

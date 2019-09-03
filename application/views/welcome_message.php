@@ -21,8 +21,12 @@ $longlat = $coordinates[1] . ', ' . $coordinates[0];
     <p>your IP - <?= $_SERVER['REMOTE_ADDR'] ?></p>
     <p>your City - <?= $getloc->city ?></p>
     <p>your Longitude/Latitude   - <?= $longlat?></p>
-    <p><div id="map" class="map"></div></p>
-    
+    <div id="map" class="map"></div>
+    <p id="details"></p>
+    <div id="popup" class="ol-popup">
+     <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+     <div id="popup-content"></div>
+    </div>
     <p>If you would like to edit this page you'll find it located at:</p>
     <code>application/views/welcome_message.php</code>
 
@@ -34,6 +38,8 @@ $longlat = $coordinates[1] . ', ' . $coordinates[0];
 
 <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo (ENVIRONMENT === 'development') ? 'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 <script type="text/javascript">
+    
+    
       var map = new ol.Map({
         target: 'map',
         layers: [
@@ -44,7 +50,92 @@ $longlat = $coordinates[1] . ', ' . $coordinates[0];
         view: new ol.View({
           //center: ol.proj.fromLonLat([37.41, 8.82]),
           center: ol.proj.fromLonLat([<?= $longlat?>]),
-          zoom: 4
+          zoom: 10
         })
       });
+      
+      var layer = new ol.layer.Vector({
+     source: new ol.source.Vector({
+         features: [
+             new ol.Feature({
+                 geometry: new ol.geom.Point(ol.proj.fromLonLat([4.35247, 50.84673]))   
+             }),
+             new ol.Feature({
+                 geometry: new ol.geom.Point(ol.proj.fromLonLat([101.7340499, 3.1478947]))   
+             }),
+             new ol.Feature({
+                 geometry: new ol.geom.Point(ol.proj.fromLonLat([101.569126, 3.268596]))   
+             }),
+         ]
+     })
+ });
+ map.addLayer(layer);
+ 
+ 
+ var container = document.getElementById('popup');
+ var content = document.getElementById('popup-content');
+ var closer = document.getElementById('popup-closer');
+
+ var overlay = new ol.Overlay({
+     element: container,
+     autoPan: true,
+     autoPanAnimation: {
+         duration: 250
+     }
+ });
+ 
+
+ closer.onclick = function() {
+     overlay.setPosition(undefined);
+     closer.blur();
+     return false;
+ };
+ 
+ map.on('singleclick', function (event) {
+     if (map.hasFeatureAtPixel(event.pixel) === true) {
+         var coordinate = event.coordinate;
+
+         content.innerHTML = '<b>Hello world!</b><br />I am a popup.';
+         overlay.setPosition(coordinate);
+     } else {
+         overlay.setPosition(undefined);
+         closer.blur();
+     }
+ });
+ 
+  content.innerHTML = '<b>Hello world!</b><br />I am a popup.';
+ overlay.setPosition(ol.proj.fromLonLat([101.7340499, 3.1478947]));
+ 
+ map.addOverlay(overlay);
+ 
+ $(document).ready(function () {
+        $.ajax({
+                    url: '<?= base_url('index.php/welcome/return_gap')?>', type: "GET", dataType: "json",
+                    success: function (data) {
+                        content = "<h3>Company Details</h3>";
+                        content += "<dl class=\"dl-horizontal\">";
+                        content += "<dt>Company Name</dt><dd>" + data.company_name + "</dd>";
+                        content += "<dt>Last Name</dt><dd>" + data.LastName + "</dd>";
+                        content += "<dt>Address1</dt><dd>" + data.Address1 + "</dd>";
+                        content += "<dt>Address2</dt><dd>" + data.Address2 + "</dd>";
+                        content += "<dt>City</dt><dd>" + data.City + "</dd>";
+                        content += "<dt>State</dt><dd>" + data.State + "</dd>";
+                        content += "<dt>Country </dt><dd>" + data.Country + "</dd>";
+                        content += "<dt>PostalCode</dt><dd>" + data.PostalCode + "</dd>";
+                        content += "<dt>Email </dt><dd>" + data.Email + "</dd>";
+                        content += "<dt>DOB </dt><dd>" + data.DOB + "</dd>";
+                        content += "<dt>Gender </dt><dd>" + data.Gender + "</dd>";
+                        content += "<dt>IsPermanent </dt><dd>" + data.IsPermanent + "</dd>";
+                        content += "<dt>Salary </dt><dd>" + data.Salary + "</dd>";
+                        content += " </dl>";
+                        $('#details').html(content);
+                    },
+                    error: function (xhr, status, error) {
+                        alert(xhr.responseText);
+                        alert(status);
+                        alert(error);                        
+                    }
+                });
+        
+    });
     </script>
