@@ -15,14 +15,14 @@ $coordinates = explode(",", $getloc->loc); // -> '32,-72' becomes'32','-72'
 $longlat = $coordinates[1] . ', ' . $coordinates[0];
 ?>
 
-<h1>PORTAL INFORMASI ALAM SEKITAR</h1>
+<!-- <h1>PORTAL INFORMASI ALAM SEKITAR</h1> -->
 
 <div id="body">
 
     <!-- <p>your IP - <?= $getloc->ip ?></p>
     <p>your City - <?= $getloc->city ?></p>
     <p>your Longitude/Latitude   - <?= $longlat?></p> -->
-    <div id="map" class="map"></div>
+    <!-- <div id="map" class="map"></div> -->
     <p id="details">
         
     </p>
@@ -30,6 +30,10 @@ $longlat = $coordinates[1] . ', ' . $coordinates[0];
      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
      <div id="popup-content"></div>
     </div>
+
+    <p>
+    <iframe src="http://localhost/viewer1" style="border:none;" width="100%" height="500px"></iframe>
+    </p>
     <!-- <p>If you would like to edit this page you'll find it located at:</p>
     <code>application/views/welcome_message.php</code>
 

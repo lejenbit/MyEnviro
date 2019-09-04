@@ -530,7 +530,7 @@ $longlat = $coordinates[1] . ', ' . $coordinates[0];
             <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
-                    <div class="row">
+                    <!-- <div class="row">
                     <div class="col-md-12">
                                 <div class="au-card au-card-top-countries m-b-30">
                                     <div class="au-card-inner">
@@ -556,18 +556,18 @@ $longlat = $coordinates[1] . ', ' . $coordinates[0];
                                     </div>
                                 </div>
                             </div>
-                    </div>
+                    </div> -->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="map-data m-b-40">
+                                <!-- <div class="map-data m-b-40"> -->
                                 <?= $contents?>
-                                </div>
+                                <!-- </div> -->
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- MAP DATA-->
-                                <div class="map-data m-b-40">
+                                <!-- <div class="map-data m-b-40">
                                     <h3 class="title-3 m-b-30">
                                         <i class="zmdi zmdi-map"></i>map data</h3>
                                     <div class="filters">
@@ -591,7 +591,7 @@ $longlat = $coordinates[1] . ', ' . $coordinates[0];
                                     <div class="map-wrap m-t-45 m-b-20">
                                         <div id="vmap" style="height: 284px;"></div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- END MAP DATA-->
                             </div>
                         </div>

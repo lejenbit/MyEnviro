@@ -20,10 +20,19 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->template->load('template/template_body', 'welcome_message');
+		//$this->template->load('template/template_body', 'welcome_message');
+		$this->load->view('layout');
+		
 	}
         
         public function return_gap()
+        {
+            $query = $this->db->get('gap');
+            
+            echo json_encode($query->result());
+		}
+		
+		public function index2()
         {
             $query = $this->db->get('gap');
             
