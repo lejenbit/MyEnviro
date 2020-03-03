@@ -637,7 +637,8 @@ pre {
   margin-left: auto;
   margin-right: auto;
   padding-right: 15px;
-  padding-left: 15px; }
+  padding-left: 15px; 
+  padding-top: inherit;}
   @media (min-width: 576px) {
     .container-fluid {
       padding-right: 15px;
@@ -7196,7 +7197,8 @@ textarea {
 @media (min-width: 576px) {
   .container-fluid-spacious {
     padding-right: 40px;
-    padding-left: 40px; } }
+    padding-left: 40px;
+    padding-top: 60px; } }
 
 .pos-r {
   position: relative !important; }
@@ -9424,3 +9426,14 @@ canvas {
   color: #fff;
   background-color: #4d5364;
   border-color: transparent; }
+
+
+  .container-fluid-spacious-padding0 {
+    /*padding-right: 0px;
+    padding-left: 0px;
+    padding-top: 27px;*/   
+}
+
+.bg-white {
+  background-color: #ffffff !important;
+}

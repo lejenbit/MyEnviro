@@ -27,7 +27,9 @@ $longlat = $coordinates[1] . ', ' . $coordinates[0];
     MyEnviro
 
   </title>
-
+  <link rel="icon" 
+      type="image/x-icon" 
+      href="<?= base_url('assets/images/') ?>fav.ico" class="bg-success">
   <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
 
   <link href="<?= base_url('assets/app-bs4') ?>/css/toolkit-light.css" rel="stylesheet">
@@ -64,6 +66,9 @@ $longlat = $coordinates[1] . ', ' . $coordinates[0];
         <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="modal" data-target="#modal-about">Tentang Portal</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?= base_url('index.php/home/dashboard')?>" > Dashboard</a>
+        </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Pautan Lain
@@ -83,10 +88,10 @@ $longlat = $coordinates[1] . ', ' . $coordinates[0];
       <span class="navbar-text hidden-sm-down ml-auto">
         <h6>
           <small>
-          <span class="icon icon-cloud navbar-brand-icon"></span>
-        IP - <?= $getloc->ip ?><br>
+          <!-- <span class="icon icon-cloud navbar-brand-icon"></span>
+        IP - <?= $getloc->ip ?><br> -->
         <span class="icon icon-address navbar-brand-icon"></span>
-      City - <?= $getloc->city ?><br>
+      Bandar - <?= $getloc->city ?><br>
       <span class="icon icon-direction navbar-brand-icon"></span>
       Long/Lat - <?= $longlat ?>
           </small>
@@ -98,7 +103,7 @@ $longlat = $coordinates[1] . ', ' . $coordinates[0];
   </nav>
 
   <div class="container-fluid container-fluid-spacious">
-  <iframe src="http://localhost/viewer1" style="border:none; padding-top:40px" width="100%" height="600px"></iframe>
+  <iframe src="<?= base_url()?>/viewer1" style="border:none; padding-top:40px" width="100%" class="myIframe"></iframe>
   </div>
 
 
@@ -116,6 +121,9 @@ $longlat = $coordinates[1] . ', ' . $coordinates[0];
         (window.BS.loader.pop())()
       }
     })
+    
+    $('.myIframe').css('height', $(window).height()+'px');
+
   </script>
 </body>
 
